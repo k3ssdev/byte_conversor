@@ -14,7 +14,7 @@ public class App {
             Unidades unidadEntrada;
             Unidades unidadSalida;
 
-            // Imprimimos las unidades de almacenamiento
+        // Imprimimos las unidades de almacenamiento
             System.out.println("Unidades de almacenamiento disponibles:");
             imprimirUnidadesAlmacenamiento();
 
@@ -32,7 +32,9 @@ public class App {
 
             // Mostramos el resultado
             System.out.println();
-            System.out.println("El resultado de la conversión es: " + resultado(Conversor.convertir(cantidad, unidadEntrada, unidadSalida)));
+            System.out.println("El resultado de la conversión es: " + resultado(Conversor.convertir(cantidad, unidadEntrada, unidadSalida))); 
+
+
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error: " + e.getMessage());
         } finally {
