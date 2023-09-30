@@ -32,7 +32,7 @@ public class App {
 
             // Mostramos el resultado
             System.out.println();
-            System.out.println("El resultado de la conversión es: " + resultado(Conversor.convertir(cantidad, unidadEntrada, unidadSalida))); 
+            Conversor.convertir(cantidad, unidadEntrada, unidadSalida); 
 
 
         } catch (Exception e) {
@@ -56,10 +56,6 @@ public class App {
         }
     }
 
-    // Metodo para que el resultado sea un numero con 2 decimales con notacion cientifica
-    public static String resultado(double resultado) {
-        return String.format("%.2e", resultado);
-    }
 
 
 }

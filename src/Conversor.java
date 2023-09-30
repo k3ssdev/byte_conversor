@@ -1,4 +1,5 @@
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.text.DecimalFormat;
 
@@ -17,11 +18,34 @@ public class Conversor {
         FACTORES_CONVERSION.put(Unidades.PETABYTE, 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
         FACTORES_CONVERSION.put(Unidades.EXABYTE, 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
         FACTORES_CONVERSION.put(Unidades.ZETTABYTE, 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
-        FACTORES_CONVERSION.put(Unidades.YOTTABYTE, 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
-        FACTORES_CONVERSION.put(Unidades.BRONTOBYTE, 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
-        FACTORES_CONVERSION.put(Unidades.GEOPBYTE, 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
+        FACTORES_CONVERSION.put(Unidades.YOTTABYTE,
+                1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
+        FACTORES_CONVERSION.put(Unidades.BRONTOBYTE,
+                1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
+        FACTORES_CONVERSION.put(Unidades.GEOPBYTE,
+                1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
 
     }
+
+    // map con las siglas de las unidades de almacenamiento
+    private static final Map<Unidades, String> unidadesAlmacenamiento = new EnumMap<>(Unidades.class);
+
+    static {
+        unidadesAlmacenamiento.put(Unidades.BIT, "bit");
+        unidadesAlmacenamiento.put(Unidades.BYTE, "B");
+        unidadesAlmacenamiento.put(Unidades.KILOBYTE, "KB");
+        unidadesAlmacenamiento.put(Unidades.MEGABYTE, "MB");
+        unidadesAlmacenamiento.put(Unidades.GIGABYTE, "GB");
+        unidadesAlmacenamiento.put(Unidades.TERABYTE, "TB");
+        unidadesAlmacenamiento.put(Unidades.PETABYTE, "PB");
+        unidadesAlmacenamiento.put(Unidades.EXABYTE, "EB");
+        unidadesAlmacenamiento.put(Unidades.ZETTABYTE, "ZB");
+        unidadesAlmacenamiento.put(Unidades.YOTTABYTE, "YB");
+        unidadesAlmacenamiento.put(Unidades.BRONTOBYTE, "BB");
+        unidadesAlmacenamiento.put(Unidades.GEOPBYTE, "GB");
+    }
+
+    
 
     public static double convertir(double cantidad, Unidades unidadEntrada, Unidades unidadSalida) {
         // Comprueba que las unidades de entrada y salida sean válidas
@@ -35,14 +59,25 @@ public class Conversor {
 
         // Realiza la conversión
         double resultado = cantidad * factorEntrada / factorSalida;
-        // Redondea el resultado a dos decimales
-    resultado = Math.round(resultado * 100.0) / 100.0;
+
+        DecimalFormat df;
+        // Notación científica
+        if (resultado > 1000) {
+        df = new DecimalFormat("0.##E0");
+        } else {
+        df = new DecimalFormat("0.##");
+        }
+
+        // Imprime el resultado
+        System.out.println(cantidad + " " + unidadesAlmacenamiento.get(unidadEntrada) + " = " + df.format(resultado) + " " + unidadesAlmacenamiento.get(unidadSalida));
+        System.out.println();
 
         // Imprime resultados para depuración
-        System.out.println("Cantidad: " + cantidad);
-        System.out.println("Factor de entrada: " + factorEntrada);
-        System.out.println("Factor de salida: " + factorSalida);
-        System.out.println("Resultado: " + resultado);
+        System.out.println("Resultados para depuración:");
+        System.out.println("Cantidad: " + cantidad + " " + unidadesAlmacenamiento.get(unidadEntrada));
+        System.out.println("Factor de entrada: " + factorEntrada + " " + unidadesAlmacenamiento.get(unidadEntrada));
+        System.out.println("Factor de salida: " + factorSalida + " " + unidadesAlmacenamiento.get(unidadSalida));
+        System.out.println("Resultado: " + resultado + " " + unidadesAlmacenamiento.get(unidadSalida));
 
         return resultado;
     }
